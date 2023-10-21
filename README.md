@@ -70,11 +70,10 @@ After creating this bucket we can run prowler against the environment and open t
 ``` $aws s3 cp prowler-output-170668165872-20230801215351.csv S3_uri_from_aws_console```
 
 
-### Running AWS prowler for different complaince standards
+### Running AWS prowler for different compliance standards
 
 
-``` python3 -m prowler aws --list-compliance
-```
+``` python3 -m prowler aws --list-compliance ```
 
 ![Running s3](https://github.com/HariPranav/Compliance_In_The_Cloud/blob/master/images/Running%20prowler%20on%20various%20compliance%20standards.png?raw=true)
 
