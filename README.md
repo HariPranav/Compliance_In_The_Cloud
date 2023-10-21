@@ -76,7 +76,7 @@ After creating this bucket we can run prowler against the environment and open t
 ``` python3 -m prowler aws --list-compliance
 ```
 
-![Running s3] (https://github.com/HariPranav/Compliance_In_The_Cloud/blob/master/images/Running%20prowler%20on%20various%20compliance%20standards.png?raw=true)
+![Running s3](https://github.com/HariPranav/Compliance_In_The_Cloud/blob/master/images/Running%20prowler%20on%20various%20compliance%20standards.png?raw=true)
 
 We can directly send the output of prowler using the command:
 
@@ -86,7 +86,7 @@ python3 prowler aws -M csv -B s3://temphpbucket/test/
 ```
 Refer to the link to automate sending files to s3 buckets:
 
-![s3 buckets](https://docs.prowler.cloud/en/latest/tutorials/aws/s3/#:~:text=By%20default%20Prowler%20sends%20HTML,%2F%20%2D%2Doutput%2Dmodes%20flag)
+[s3 buckets](https://docs.prowler.cloud/en/latest/tutorials/aws/s3/#:~:text=By%20default%20Prowler%20sends%20HTML,%2F%20%2D%2Doutput%2Dmodes%20flag)
 
 
 ### Creating the Quicksight Dashboards:
