@@ -1,4 +1,6 @@
-# Complaince in the cloud using Prowler
+# A Multi Cloud Risk Management Approach To Visualize Remediate Risk From A Single Pane Of Glass
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/700ef07b9151412e85b728b2fb736cef?sid=a76e6760-31e8-4374-a9e6-6cdff4ad7fb5" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 
 ### What is compliance ? 
 
@@ -88,6 +90,109 @@ Refer to the link to automate sending files to s3 buckets:
 [s3 buckets](https://docs.prowler.cloud/en/latest/tutorials/aws/s3/#:~:text=By%20default%20Prowler%20sends%20HTML,%2F%20%2D%2Doutput%2Dmodes%20flag)
 
 
+# Automated Deployment using AWS CDK:
+
+The management and supply of infrastructure using code rather than human procedures is known as infrastructure as code (IaC).
+Your infrastructure requirements are produced as configuration files using IaC, making it simpler to change and share configurations. Additionally, it guarantees that you always supply the same environment. IaC facilitates configuration management and helps you prevent undocumented, ad hoc configuration changes by codifying and documenting your configuration standards.
+Continuous Integration/Continuous Delivery (CI/CD) and DevOps concepts are implemented in large part because to IaC. IaC frees developers from much of the provisioning labor; they may run a script to instantly have their infrastructure operational. In this manner, the infrastructure doesn't delay application deployments, and sysadmins are spared from handling laborious manual procedures. 
+Continuous Integration and Testing (CI/CD) requires continuous automation and monitoring at every stage of the application life cycle, from delivery and deployment to integration and testing. An environment must be consistent in order for it to be automated. When the operations team deploys and configures environments in a different way than the development team, automating application deployments is ineffective. [3]
+
+To create an AWS CDK project we need to download the CDK from the link given below and create a repository as given in the link.
+
+[Creating a new project in AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html)
+
+After the project is created we get a folder structure as given below. In the folder we need to activate the environment and then pip install the requirements.txt , after that we need to paste the code below which takes an exisiting repository in ECR and runs it on an ECS cluster.
+
+![Folder structure](https://github.com/HariPranav/Compliance_In_The_Cloud/blob/master/images/folderestrcuture.png) 
+
+AWS CDK code to run Prowler on AWS using CDK v2 .
+```
+from aws_cdk import (
+aws_ec2 as ec2, aws_ecs as ecs,
+                     aws_ecs_patterns as ecs_patterns,
+                     aws_iam as iam,
+                     aws_ecr as ecr,
+                     Stack
+)
+
+
+
+from constructs import Construct
+
+class MyEcsConstructStack(Stack):
+
+    def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
+        super().__init__(scope, construct_id, **kwargs)
+
+        ecr_repository = ecr.Repository.from_repository_attributes(
+            self,
+            "ECRRepository",
+            repository_name="prowler",
+            # Run a command to get the arn of  https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ecr/describe-repositories.html
+            repository_arn="arn:aws:ecr:us-east-1:170668165872:repository/prowler"
+            
+            
+            # repository_uri="AccountId.dkr.ecr.us-east-1.amazonaws.com/prowler:latest",
+        )
+        # The code that defines your stack goes here
+        # example resource
+        # queue = sqs.Queue(
+        #     self, "MyEcsConstructQueue",
+        #     visibility_timeout=Duration.seconds(300),
+        # )
+        vpc = ec2.Vpc(self, "MyVpc", max_azs=2)     # default is all AZs in region
+        existing_task_role_arn = "arn:aws:iam::170668165872:role/ecsTaskExecutionRole"
+        existing_execution_role_arn = "arn:aws:iam::170668165872:role/ecsTaskExecutionRole"
+        # Define a task role using the provided ARN
+        task_role = iam.Role.from_role_arn(
+            self,
+            "ExistingTaskRole",
+            role_arn=existing_task_role_arn,
+        )
+        # ecr_repository.grant_pull(task_role) 
+        # Define a task execution role using the provided ARN
+        execution_role = iam.Role.from_role_arn(
+            self,
+            "ExistingExecutionRole",
+            role_arn=existing_execution_role_arn,
+        )
+        cluster = ecs.Cluster(self, "MyCluster", vpc=vpc)
+        ecs_patterns.ApplicationLoadBalancedFargateService(self, "MyFargateService",
+            cluster=cluster,            # Required
+            cpu=512,                    # Default is 256
+            desired_count=1,            # Default is 1
+            task_image_options=ecs_patterns.ApplicationLoadBalancedTaskImageOptions(
+            image=ecs.ContainerImage.from_ecr_repository(repository= ecr_repository, tag="latest"),
+            task_role=task_role,  # Assign the existing task role
+            execution_role=execution_role,  # Assign the existing execution role
+            container_name="prowler"
+            ),
+            memory_limit_mib=2048,      # Default is 512
+            public_load_balancer=True)  # Default is True         
+
+```
+
+After pasting this code run 
+
+```
+cdk synth
+```
+
+This above command can synthasize the code into terraform templates and if there are no errors we can run:
+
+```
+cdk deploy
+```
+
+This above command can deploy the templates to the cloud which can help in creation and initiation of resources to run.
+
+Once we have created all the resources and run the tool we can then destroy the resources so that it does not incur additional cost by running the command given below:
+
+```
+cdk destroy
+```
+
+
 ### Creating the Quicksight Dashboards:
 
 ![Creating the quicksight dashbaord](https://github.com/HariPranav/Compliance_In_The_Cloud/blob/master/images/Quicksight_Screenshot.png?raw=true)
@@ -124,4 +229,6 @@ References:
 [1] https://www.techtarget.com/searchdatamanagement/definition/compliance
 
 [2] https://github.com/prowler-cloud/prowler
+
+[3] https://www.redhat.com/en/topics/automation/what-is-infrastructure-as-code-iac#:~:text=Infrastructure%20as%20Code%20(IaC)%20is,to%20edit%20and%20distribute%20configurations.
 
