@@ -1,6 +1,8 @@
 # A Multi Cloud Risk Management Approach To Visualize Remediate Risk From A Single Pane Of Glass
 
-<div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/700ef07b9151412e85b728b2fb736cef?sid=a76e6760-31e8-4374-a9e6-6cdff4ad7fb5" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+A full video walthrough of the code and can be found here
+
+![Video Walthorough](https://www.loom.com/share/700ef07b9151412e85b728b2fb736cef?sid=4b760120-b116-413c-80e6-6f24aaf6c72d)
 
 ### What is compliance ? 
 
