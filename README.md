@@ -2,7 +2,7 @@
 
 A full video walkthrough of the code and can be found here:
 
-[Video Waklthorough](https://www.loom.com/share/700ef07b9151412e85b728b2fb736cef?sid=4b760120-b116-413c-80e6-6f24aaf6c72d)
+[Video Walkthrough](https://www.loom.com/share/700ef07b9151412e85b728b2fb736cef?sid=4b760120-b116-413c-80e6-6f24aaf6c72d)
 
 ### What is compliance ? 
 
