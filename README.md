@@ -1,24 +1,24 @@
-# A Multi Cloud Risk Management Approach To Visualize Remediate Risk From A Single Pane Of Glass
+# A Multi Cloud Risk Management Approach to Visualize, Remediate Risk From A Single Pane Of Glass
 
-A full video walthrough of the code and can be found here
+A full video walkthrough of the code and can be found here:
 
-[Video Walthorough](https://www.loom.com/share/700ef07b9151412e85b728b2fb736cef?sid=4b760120-b116-413c-80e6-6f24aaf6c72d)
+[Video Waklthorough](https://www.loom.com/share/700ef07b9151412e85b728b2fb736cef?sid=4b760120-b116-413c-80e6-6f24aaf6c72d)
 
 ### What is compliance ? 
 
-The condition of being in conformity with set rules or requirements, or the act of doing so, is called compliance. For instance, software may be designed in accordance with standards body-created specifications and then implemented by user organizations in accordance with a vendor's license terms. The term "compliance" may also refer to measures taken by organizations to make sure they are following laws and industry norms [1]. Due in part to the growing number of rules that force businesses to be diligent in keeping a complete grasp of their legal obligations for compliance, compliance is a common business worry. An organization must abide by rules or regulations set out by the government or by itself in order to meet compliance criteria.
+The condition of being in conformity with set rules or requirements, or the act of doing so, is called compliance. For instance, software may be designed in accordance with standards body-created specifications and then implemented by user organizations in accordance with a vendor's license terms. The term "compliance" may also refer to measures taken by organizations to make sure they are following laws and industry norms [1]. Due in part to the growing number of rules that force businesses to be diligent in keeping a complete grasp of their legal obligations for compliance, compliance is a common business worry. An organization must abide by rules or regulations set out by the government or by itself to meet compliance criteria.
 
 
 ### What is AWS Prowler ? 
 
-"Prowler is an Open Source security tool to perform AWS, GCP and Azure security best practices assessments, audits, incident response, continuous monitoring, hardening and forensics readiness.It contains hundreds of controls covering CIS, NIST 800, NIST CSF, CISA, RBI, FedRAMP, PCI-DSS, GDPR, HIPAA, FFIEC, SOC2, GXP, AWS Well-Architected Framework Security Pillar, AWS Foundational Technical Review (FTR), ENS (Spanish National Security Scheme) and your custom security frameworks".
+"Prowler is an Open-Source security tool to perform AWS, GCP and Azure security best practices assessments, audits, incident response, continuous monitoring, hardening and forensics readiness. It contains hundreds of controls covering CIS, NIST 800, NIST CSF, CISA, RBI, FedRAMP, PCI-DSS, GDPR, HIPAA, FFIEC, SOC2, GXP, AWS Well-Architected Framework Security Pillar, AWS Foundational Technical Review (FTR), ENS (Spanish National Security Scheme) and your custom security frameworks".
 [2].
 
 ### Installing Prowler on Kali using AWS CLI
 
 There are multiple ways of running Prowler, for this blog we are installing Prowler on Kali Linux inside VMware.
 
-The first step involves installing the AWS cli from the blog post given below. When we install the CLI we need to be carefull to generate keys which are temporary.
+The first step involves installing the AWS cli from the blog post given below. When we install the CLI we need to be careful to generate keys which are temporary.
 
 [AWS CLI installation](https://docs.aws.amazon.com/cli/v1/userguide/install-linux.html)
 
@@ -29,7 +29,7 @@ Once we install the AWS CLI we can generate the AWS ACCESS and keys and then use
 
 command in the kali terminal in which we can then embed the keys for further use with prowler as given in the blog below:
 
-[AWS Access Keys configuration](https://k21academy.com/amazon-web-services/create-access-and-secret-keys-in-aws/)
+[AWS Access Keys configuration] (https://k21academy.com/amazon-web-services/create-access-and-secret-keys-in-aws/)
 
 Once everything is installed we can run :
 
@@ -39,7 +39,7 @@ and
 
 ``aws configure``
 
-As per the screenshot given below we can verfiy that the CLI and the access keys are installed. 
+As per the screenshot given below we can verify that the CLI and the access keys are installed. 
 
 ![Installing the aws keys](https://github.com/HariPranav/Compliance_In_The_Cloud/blob/master/images/AWS%20KEYS%20installtion.png?raw=true)
 
@@ -53,17 +53,17 @@ Once we install prowler we can use various compliance standards or run prowler w
 
 ``prowler aws --list-compliance``
 
-To run prowler for a particular compliance standard we can run, here the -o is used to give the ouput directory and we are using the pci_3.2.1 standard.
+To run prowler for a particular compliance standard we can run, here the -o is used to give the output directory and we are using the pci_3.2.1 standard.
 
 ``python3 -m prowler --compliance pci_3.2.1_aws -o /home/kali/pci_3.2.1_aws``
 
-Hence we can run prowler for various complinace standards and store the result as JSON, CSV or HTML and upload the same for visualization
+Hence we can run prowler for various compliance standards and store the result as JSON, CSV or HTML and upload the same for visualization
 
 ### Creating a misconfigured bucket to check prowler misconfigurations:
 
 ![Creating an S3 bucket with public access](https://github.com/HariPranav/Compliance_In_The_Cloud/blob/master/images/s3buckets.png?raw=true) 
 
-After creating this bucket we can run prowler against the environment and open the html output and filter to the s3 service as given in the screenshot below, this shows various fields which are helpful such as the service name, the status of the check, the risk associated with the check and the compliance standards mapped to this check.
+After creating this bucket, we can run prowler against the environment and open the html output and filter to the s3 service as given in the screenshot below, this shows various fields which are helpful such as the service name, the status of the check, the risk associated with the check and the compliance standards mapped to this check.
 
 ![s3 miscong](https://github.com/HariPranav/Compliance_In_The_Cloud/blob/master/images/s3publicaccessmisconfigprowler.png?raw=true)
 
@@ -97,13 +97,13 @@ Refer to the link to automate sending files to s3 buckets:
 The management and supply of infrastructure using code rather than human procedures is known as infrastructure as code (IaC).
 Your infrastructure requirements are produced as configuration files using IaC, making it simpler to change and share configurations. Additionally, it guarantees that you always supply the same environment. IaC facilitates configuration management and helps you prevent undocumented, ad hoc configuration changes by codifying and documenting your configuration standards.
 Continuous Integration/Continuous Delivery (CI/CD) and DevOps concepts are implemented in large part because to IaC. IaC frees developers from much of the provisioning labor; they may run a script to instantly have their infrastructure operational. In this manner, the infrastructure doesn't delay application deployments, and sysadmins are spared from handling laborious manual procedures. 
-Continuous Integration and Testing (CI/CD) requires continuous automation and monitoring at every stage of the application life cycle, from delivery and deployment to integration and testing. An environment must be consistent in order for it to be automated. When the operations team deploys and configures environments in a different way than the development team, automating application deployments is ineffective. [3]
+Continuous Integration and Testing (CI/CD) requires continuous automation and monitoring at every stage of the application life cycle, from delivery and deployment to integration and testing. An environment must be consistent for it to be automated. When the operations team deploys and configures environments in a different way than the development team, automating application deployments is ineffective. [3]
 
 To create an AWS CDK project we need to download the CDK from the link given below and create a repository as given in the link.
 
 [Creating a new project in AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html)
 
-After the project is created we get a folder structure as given below. In the folder we need to activate the environment and then pip install the requirements.txt , after that we need to paste the code below which takes an exisiting repository in ECR and runs it on an ECS cluster.
+After the project is created, we get a folder structure as given below. In the folder we need to activate the environment and then pip install the requirements.txt , after that we need to paste the code below which takes an existing repository in ECR and runs it on an ECS cluster.
 
 ![Folder structure](https://github.com/HariPranav/Compliance_In_The_Cloud/blob/master/images/folderestrcuture.png) 
 
@@ -180,7 +180,7 @@ After pasting this code run
 cdk synth
 ```
 
-This above command can synthasize the code into terraform templates and if there are no errors we can run:
+This above command can synthesize the code into terraform templates and if there are no errors we can run:
 
 ```
 cdk deploy
@@ -220,11 +220,11 @@ In the screenshot given below we can combine multiple datasets into a single ana
 
 ![Add Datasets to dashboards](https://github.com/HariPranav/Compliance_In_The_Cloud/blob/master/images/Addingall_multiple_datasets_to_dashbords_7.png?raw=true)
 
-Once we add multiple datasets to an Analysis we have an option in Quicksight to filter by visual which can be seen in the highlighted screenshot below. Once we filter by this method the the data from **all** the charts filter to the same point. To do this we need to select the chart and click on **Action**, in this section there is an option called **Filter same-sheet-visuals**
+Once we add multiple datasets to an Analysis we have an option in Quicksight to filter by visual which can be seen in the highlighted screenshot below. Once we filter by this method the data from **all** the charts filter to the same point. To do this we need to select the chart and click on **Action**, in this section there is an option called **Filter same-sheet-visuals**
 
 ![Filter same as sheet option](https://github.com/HariPranav/Compliance_In_The_Cloud/blob/master/images/Filter_Same_Sheet_Visual_9.png?raw=true)
 
-Once we add the datasets to a given analysis we can publish the data to a **Dashboard** by clicking the **Share** option in the top right side of the analysis. 
+Once we add the datasets to a given analysis, we can publish the data to a **Dashboard** by clicking the **Share** option in the top right side of the analysis. 
 
 References:
 
